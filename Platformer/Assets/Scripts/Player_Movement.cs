@@ -5,15 +5,24 @@ using UnityEngine;
 [RequireComponent (typeof(Controller2D))]
 public class Player_Movement : MonoBehaviour
 {
+    public float jumpHeight = 4;
+    public float timeToJumpApex = 0.4f;
+    float accelerationTimeAir = .2f;
+    float accelerationTimeGrounded = 0.1f;
     float moveSpeed = 6;
-    float gravity = -20;
-    Vector3 velocity;
+    float gravity;
 
+    float jumpVelocity;
+    Vector3 velocity;
+    float velocityXSmoothing;
     private Controller2D controller;
 
     void Start()
     {
         controller = GetComponent<Controller2D>();
+
+        gravity = -(2 * jumpHeight) / Mathf.Pow(timeToJumpApex, 2);
+        jumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
     }
 
     void Update()
@@ -26,7 +35,12 @@ public class Player_Movement : MonoBehaviour
 
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
-        velocity.x = input.x * moveSpeed;
+        if(Input.GetKeyDown(KeyCode.Z) && controller.collisions.below)
+        {
+            velocity.y = jumpVelocity;
+        }
+        float targetVelocity = input.x * moveSpeed;
+        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocity, ref velocityXSmoothing, (controller.collisions.below)?accelerationTimeGrounded:accelerationTimeAir);
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
