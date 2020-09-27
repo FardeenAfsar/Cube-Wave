@@ -443,6 +443,7 @@ GameObject:
   - component: {fileID: 313031202}
   - component: {fileID: 313031201}
   - component: {fileID: 313031200}
+  - component: {fileID: 313031204}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -492,7 +493,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: c88179d7159a7da43b26fdc8fd838afa, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -559,6 +560,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &313031204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 313031199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c89fd1ef0809654c9b11e68ac2d9273, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 6.5
+  jumpforce: 10
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
