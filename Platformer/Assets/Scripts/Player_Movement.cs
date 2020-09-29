@@ -5,7 +5,11 @@ using UnityEngine;
 [RequireComponent (typeof(Controller2D))]
 public class Player_Movement : MonoBehaviour
 {
-    public float jumpHeight = 4;
+    public string PlayerH;
+    public string PlayerV;
+    public KeyCode jump;
+
+    public float jumpHeight = 2;
     public float timeToJumpApex = 0.4f;
     public float gravityScale = 1.52f;
     float accelerationTimeAir = .125f;
@@ -51,9 +55,9 @@ public class Player_Movement : MonoBehaviour
         {
             velocity.y = 0;
         }
-        Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        Vector2 input = new Vector2(Input.GetAxisRaw(PlayerH), Input.GetAxisRaw(PlayerV));
 
-        if(Input.GetKeyDown(KeyCode.Z) && controller.collisions.below)
+        if(Input.GetKeyDown(jump) && controller.collisions.below)
         {
             Jump();
         }
