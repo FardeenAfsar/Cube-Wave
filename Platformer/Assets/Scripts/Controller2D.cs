@@ -27,7 +27,6 @@ public class Controller2D : MonoBehaviour
 
     public void Move(Vector3 velocity)
     {
-
         collisions.Reset();
         UpdateRaycastOrigins();
         if (velocity.x != 0)
@@ -55,9 +54,6 @@ public class Controller2D : MonoBehaviour
             RaycastHit2D hit2 = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, otherPlayerMask);
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, collisionMask);
 
-            Debug.DrawRay(rayOrigin, Vector2.right * directionX * rayLength, Color.red);
-
-
             if (hit2)
             {
                 velocity.x = (hit2.distance - skinwidth) * directionX;
@@ -65,6 +61,7 @@ public class Controller2D : MonoBehaviour
 
                 collisions.left = directionX == -1;
                 collisions.right = directionX == 1;
+
             } 
             if (hit)
             {
@@ -91,8 +88,6 @@ public class Controller2D : MonoBehaviour
             RaycastHit2D hit2 = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, otherPlayerMask);
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMask);
 
-            Debug.DrawRay(rayOrigin, Vector2.up * directionY * rayLength, Color.red);
-
             if (hit2)
             {
                 velocity.y = (hit2.distance - skinwidth) * directionY;
@@ -100,6 +95,11 @@ public class Controller2D : MonoBehaviour
 
                 collisions.below = directionY == -1;
                 collisions.above = directionY == 1;
+                if(hit2.normal.y >= 0.9f)
+                {
+                    Destroy(hit2.collider.gameObject);
+                }
+
             } 
             if (hit)
             {

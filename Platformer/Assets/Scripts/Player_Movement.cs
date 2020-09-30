@@ -82,6 +82,5 @@ public class Player_Movement : MonoBehaviour
             reachedApex = true;
         }
         maxHeightReached = Mathf.Max(transform.position.y, maxHeightReached);
-    }   
-
+    }
 }
