@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class Controller2D : MonoBehaviour
@@ -98,6 +99,8 @@ public class Controller2D : MonoBehaviour
                 if(hit2.normal.y >= 0.9f)
                 {
                     Destroy(hit2.collider.gameObject);
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                    
                 }
 
             } 

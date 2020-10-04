@@ -660,7 +660,8 @@ MonoBehaviour:
   PlayerH: 
   PlayerV: 
   jump: 0
-  jumpHeight: 2
+  maxJumpHeight: 2
+  minJumpHeight: 0.5
   timeToJumpApex: 0.4
   gravityScale: 1.52
 --- !u!114 &313031205
@@ -1203,7 +1204,8 @@ MonoBehaviour:
   PlayerH: P2H
   PlayerV: P2V
   jump: 119
-  jumpHeight: 2
+  maxJumpHeight: 2.75
+  minJumpHeight: 0.5
   timeToJumpApex: 0.4
   gravityScale: 1.52
 --- !u!61 &1354801778
@@ -1437,7 +1439,8 @@ MonoBehaviour:
   PlayerH: P1H
   PlayerV: P1V
   jump: 273
-  jumpHeight: 2
+  maxJumpHeight: 2.75
+  minJumpHeight: 0.5
   timeToJumpApex: 0.4
   gravityScale: 1.52
 --- !u!61 &1942606332
