@@ -4,10 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(Player_Movement))]
 public class Controller2D : MonoBehaviour
 {
     public LayerMask collisionMask;
     public LayerMask otherPlayerMask;
+    public LayerMask powerUpMask;
 
     const float skinwidth = .015f;
     public int horizontalRayCount = 4;
@@ -17,12 +19,14 @@ public class Controller2D : MonoBehaviour
     float verticalRaySpacing;
 
     BoxCollider2D colliderbox;
+    Player_Movement player_movement;
     RaycastOrigins raycastOrigins;
 
     public CollisionInfo collisions;
     void Start()
     {
         colliderbox = GetComponent<BoxCollider2D>();
+        player_movement = GetComponent<Player_Movement>();
         CalculateRaySpacing();
     }
 
@@ -54,6 +58,7 @@ public class Controller2D : MonoBehaviour
             rayOrigin += Vector2.up * (horizontalRaySpacing * i);
             RaycastHit2D hit2 = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, otherPlayerMask);
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, collisionMask);
+            RaycastHit2D hitPowerUp = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, powerUpMask);
 
             if (hit2)
             {
@@ -72,6 +77,12 @@ public class Controller2D : MonoBehaviour
                 collisions.left = directionX == -1;
                 collisions.right = directionX == 1;
             }
+            if (hitPowerUp)
+            {
+                Destroy(hitPowerUp.collider.gameObject);
+                player_movement.powerup.secondJump = true;
+
+            }
 
         }
     }
@@ -88,6 +99,7 @@ public class Controller2D : MonoBehaviour
             rayOrigin += Vector2.right * (verticalRaySpacing * i + velocity.x);
             RaycastHit2D hit2 = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, otherPlayerMask);
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMask);
+            RaycastHit2D hitPowerUp = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, powerUpMask);
 
             if (hit2)
             {
@@ -103,7 +115,7 @@ public class Controller2D : MonoBehaviour
                     
                 }
 
-            } 
+            }
             if (hit)
             {
                 velocity.y = (hit.distance - skinwidth) * directionY;
@@ -111,6 +123,12 @@ public class Controller2D : MonoBehaviour
 
                 collisions.below = directionY == -1;
                 collisions.above = directionY == 1;
+            }
+
+            if (hitPowerUp)
+            {
+                Destroy(hitPowerUp.collider.gameObject);
+                player_movement.powerup.secondJump = true;
             }
 
         }

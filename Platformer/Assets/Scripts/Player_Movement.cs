@@ -28,10 +28,11 @@ public class Player_Movement : MonoBehaviour
     float startHeight = Mathf.NegativeInfinity;
     float maxHeightReached = Mathf.NegativeInfinity;
     bool reachedApex = true;
-    bool secondJump = true;
     float jumpTimer = 0;
     //
     Vector3 oldVelocity;
+
+    public PowerUpInfo powerup;
 
     void Start()
     {
@@ -40,7 +41,6 @@ public class Player_Movement : MonoBehaviour
         gravity_fall = gravity * gravityScale;
         maxJumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
         minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
-        
     }
     
     void Jump()
@@ -58,7 +58,6 @@ public class Player_Movement : MonoBehaviour
         if (controller.collisions.above || controller.collisions.below)
         {
             velocity.y = 0;
-            secondJump = true;
         }
         Vector2 input = new Vector2(Input.GetAxisRaw(PlayerH), Input.GetAxisRaw(PlayerV));
 
@@ -72,10 +71,10 @@ public class Player_Movement : MonoBehaviour
                 velocity.y = minJumpVelocity;
             }
         }
-        if (!controller.collisions.below && Input.GetKeyDown(jump) && secondJump)
+        if (!controller.collisions.below && Input.GetKeyDown(jump) && powerup.secondJump)
         {
             Jump();
-            secondJump = false;
+            powerup.secondJump = false;
         }
 
         if (!controller.collisions.below && !reachedApex)
@@ -99,5 +98,10 @@ public class Player_Movement : MonoBehaviour
             reachedApex = true;
         }
         maxHeightReached = Mathf.Max(transform.position.y, maxHeightReached);
+    }
+
+    public struct PowerUpInfo
+    {
+        public bool secondJump;
     }
 }
