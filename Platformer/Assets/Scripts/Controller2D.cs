@@ -11,6 +11,8 @@ public class Controller2D : MonoBehaviour
     public LayerMask otherPlayerMask;
     public LayerMask powerUpMask;
 
+    public GameObject prefabPower;
+
     const float skinwidth = .015f;
     public int horizontalRayCount = 4;
     public int verticalRayCount = 4;
@@ -79,9 +81,10 @@ public class Controller2D : MonoBehaviour
             }
             if (hitPowerUp)
             {
+                Vector3 powerPos = hitPowerUp.collider.transform.position;
                 Destroy(hitPowerUp.collider.gameObject);
                 player_movement.powerup.secondJump = true;
-
+                StartCoroutine(delay(powerPos, 10f));
             }
 
         }
@@ -127,11 +130,24 @@ public class Controller2D : MonoBehaviour
 
             if (hitPowerUp)
             {
+                Vector3 powerPos = hitPowerUp.collider.transform.position;
                 Destroy(hitPowerUp.collider.gameObject);
                 player_movement.powerup.secondJump = true;
+                StartCoroutine(delay(powerPos, 10f));
             }
 
         }
+    }
+    IEnumerator delay(Vector3 pos, float delayTime)
+    {
+        yield return new WaitForSecondsRealtime(delayTime);
+        Spawn(pos);
+
+    }
+
+    void Spawn(Vector3 pos)
+    {
+        Instantiate(prefabPower,pos,Quaternion.identity);
     }
 
     void UpdateRaycastOrigins()
