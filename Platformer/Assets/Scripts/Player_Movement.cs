@@ -41,6 +41,8 @@ public class Player_Movement : MonoBehaviour
         gravity_fall = gravity * gravityScale;
         maxJumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
         minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
+
+        Debug.Log("sw: " + Screen.width);
     }
     
     void Jump()
