@@ -11,8 +11,8 @@ public class Player_Movement : MonoBehaviour
 
     public float maxJumpHeight = 2.5f;
     public float minJumpHeight = 1.25f;
-    public float timeToJumpApex = 0.4f;
-    public float gravityScale = 1.52f;
+    public float timeToJumpApex = 0.35f;
+    public float gravityScale = 1.75f;
     float accelerationTimeAir = .125f;
     float accelerationTimeGrounded = 0.045f;
     float moveSpeed = 6;
@@ -79,15 +79,15 @@ public class Player_Movement : MonoBehaviour
 
         if (!controller.collisions.below && !reachedApex)
         {
-            jumpTimer += Time.fixedDeltaTime;
+            jumpTimer += Time.deltaTime;
         }
 
         float targetVelocity = input.x * moveSpeed;
         oldVelocity = velocity;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocity, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAir);
-        velocity.y += (!controller.collisions.below && reachedApex?gravity_fall:gravity) * Time.fixedDeltaTime;
+        velocity.y += (!controller.collisions.below && reachedApex?gravity_fall:gravity) * Time.deltaTime;
         velocity.y = Mathf.Min(velocity.y, maxJumpVelocity);
-        Vector3 deltaPos = (oldVelocity + velocity) * 0.5f * Time.fixedDeltaTime; 
+        Vector3 deltaPos = (oldVelocity + velocity) * 0.5f * Time.deltaTime; 
         controller.Move(deltaPos);
 
         if (!reachedApex && maxHeightReached > transform.position.y)
