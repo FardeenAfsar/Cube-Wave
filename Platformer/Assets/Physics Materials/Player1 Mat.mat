@@ -28,6 +28,9 @@ Material:
         m_Texture: {fileID: 2800000, guid: 199a99bcef0c8904da1476b0bab1e742, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Floats: []
+    m_Floats:
+    - _Fade: 1
+    - _NoiseScale: 80
     m_Colors:
+    - Color_1639C71: {r: 0, g: 11.984314, b: 3.8620267, a: 0}
     - Color_563697FF: {r: 2.1185474, g: 0, b: 1.1539215, a: 0}

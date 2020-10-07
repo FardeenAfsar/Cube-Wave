@@ -590,6 +590,7 @@ GameObject:
   - component: {fileID: 934539935}
   - component: {fileID: 934539934}
   - component: {fileID: 934539933}
+  - component: {fileID: 934539936}
   m_Layer: 8
   m_Name: Player1
   m_TagString: Player1
@@ -731,6 +732,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.16, y: 0.16}
   m_EdgeRadius: 0
+--- !u!114 &934539936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 934539930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caa4bceb0c2797245bf86266e6ae6fba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  otherPlayer: {fileID: 2081785368}
+  dissolveTime: 0.7
 --- !u!1 &1183634778
 GameObject:
   m_ObjectHideFlags: 0
@@ -869,36 +884,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1739595587}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1764449328
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1764449329}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1764449329
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1764449328}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.40715933, y: -0.39216694, z: -0.13085938}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1904670891
 GameObject:
   m_ObjectHideFlags: 0
@@ -1041,6 +1026,7 @@ GameObject:
   - component: {fileID: 2081785372}
   - component: {fileID: 2081785371}
   - component: {fileID: 2081785370}
+  - component: {fileID: 2081785374}
   m_Layer: 10
   m_Name: Player2
   m_TagString: Player
@@ -1182,6 +1168,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2081785374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2081785368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caa4bceb0c2797245bf86266e6ae6fba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  otherPlayer: {fileID: 934539930}
+  dissolveTime: 0.7
 --- !u!1001 &6922698175617456808
 PrefabInstance:
   m_ObjectHideFlags: 0

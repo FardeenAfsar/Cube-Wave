@@ -113,9 +113,8 @@ public class Controller2D : MonoBehaviour
                 collisions.above = directionY == 1;
                 if(hit2.normal.y >= 0.9f)
                 {
-                    Destroy(hit2.collider.gameObject);
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-                    
+                    collisions.isDying = true;
+                    collisions.otherCollider = hit2.collider.gameObject;
                 }
 
             }
@@ -183,6 +182,8 @@ public class Controller2D : MonoBehaviour
     {
         public bool above, below;
         public bool left, right;
+        public bool isDying;
+        public GameObject otherCollider;
 
         public void Reset()
         {
