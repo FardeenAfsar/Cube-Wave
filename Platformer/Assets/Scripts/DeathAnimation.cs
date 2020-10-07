@@ -22,6 +22,7 @@ public class DeathAnimation : MonoBehaviour
     {
         if (controller.collisions.isDying)
         {
+            controller.collisions.otherCollider.GetComponent<Player_Movement>().enabled = false;
             fade -= Time.deltaTime * dissolveTime;
             if (fade <= 0f)
             {
