@@ -12,6 +12,7 @@ public class Controller2D : MonoBehaviour
     public LayerMask powerUpMask;
 
     public GameObject prefabPower;
+    bool powerUpRoutine = true;
 
     const float skinwidth = .015f;
     public int horizontalRayCount = 4;
@@ -79,12 +80,16 @@ public class Controller2D : MonoBehaviour
                 collisions.left = directionX == -1;
                 collisions.right = directionX == 1;
             }
-            if (hitPowerUp)
+            if (hitPowerUp && powerUpRoutine)
             {
+                collisions.isPowerUp = true;
                 Vector3 powerPos = hitPowerUp.collider.transform.position;
-                Destroy(hitPowerUp.collider.gameObject);
+                collisions.powerUpCollider = hitPowerUp.collider.gameObject;
+                //Destroy(hitPowerUp.collider.gameObject);
                 player_movement.powerup.secondJump = true;
+                powerUpRoutine = false;
                 StartCoroutine(delay(powerPos, 10f));
+
             }
 
         }
@@ -127,11 +132,14 @@ public class Controller2D : MonoBehaviour
                 collisions.above = directionY == 1;
             }
 
-            if (hitPowerUp)
+            if (hitPowerUp && powerUpRoutine)
             {
+                collisions.isPowerUp = true;
                 Vector3 powerPos = hitPowerUp.collider.transform.position;
-                Destroy(hitPowerUp.collider.gameObject);
+                collisions.powerUpCollider = hitPowerUp.collider.gameObject;
+                //Destroy(hitPowerUp.collider.gameObject);
                 player_movement.powerup.secondJump = true;
+                powerUpRoutine = false;
                 StartCoroutine(delay(powerPos, 10f));
             }
 
@@ -147,6 +155,7 @@ public class Controller2D : MonoBehaviour
     void Spawn(Vector3 pos)
     {
         Instantiate(prefabPower,pos,Quaternion.identity);
+        powerUpRoutine = true;
     }
 
     void UpdateRaycastOrigins()
@@ -182,8 +191,9 @@ public class Controller2D : MonoBehaviour
     {
         public bool above, below;
         public bool left, right;
-        public bool isDying;
+        public bool isDying, isPowerUp;
         public GameObject otherCollider;
+        public GameObject powerUpCollider;
 
         public void Reset()
         {

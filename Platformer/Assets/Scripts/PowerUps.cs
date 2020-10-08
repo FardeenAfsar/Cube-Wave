@@ -2,19 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Player_Movement))]
 [RequireComponent(typeof(Controller2D))]
-public class Game_Mech : MonoBehaviour
+public class PowerUps : MonoBehaviour
 {
-    private Player_Movement player_movement;
-    private Controller2D controller;
+    Material material;
+    public GameObject powerUp;
+    float fade = 1f;
+    public float dissolveTime = 1f;
+    
+    Controller2D controller;
     void Start()
     {
-        player_movement = GetComponent<Player_Movement>();
         controller = GetComponent<Controller2D>();
     }
-    void SecondJumpPower()
+    void Update()
     {
+        if (controller.collisions.isPowerUp)
+        {
+            material = controller.collisions.powerUpCollider.GetComponent<SpriteRenderer>().material;
+            fade -= Time.deltaTime * dissolveTime;
+            if (fade <= 0f)
+            {
+                fade = 0f;
+                controller.collisions.isPowerUp = false;
+                Destroy(controller.collisions.powerUpCollider);
+            }
+            material.SetFloat("_Fade", fade);
+        }
     }
-
 }
