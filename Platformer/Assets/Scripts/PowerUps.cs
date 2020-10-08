@@ -26,6 +26,7 @@ public class PowerUps : MonoBehaviour
                 fade = 0f;
                 controller.collisions.isPowerUp = false;
                 Destroy(controller.collisions.powerUpCollider);
+                fade = 1f;
             }
             material.SetFloat("_Fade", fade);
         }
