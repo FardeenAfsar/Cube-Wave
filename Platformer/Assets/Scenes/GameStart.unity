@@ -1161,6 +1161,7 @@ MonoBehaviour:
   PlayerH: P1H
   PlayerV: P1V
   jump: 273
+  dash: 47
   maxJumpHeight: 2.75
   minJumpHeight: 0.5
   timeToJumpApex: 0.35
@@ -2058,6 +2059,7 @@ MonoBehaviour:
   PlayerH: P2H
   PlayerV: P2V
   jump: 119
+  dash: 107
   maxJumpHeight: 2.75
   minJumpHeight: 0.5
   timeToJumpApex: 0.35

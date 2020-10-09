@@ -8,30 +8,43 @@ public class Player_Movement : MonoBehaviour
     public string PlayerH;
     public string PlayerV;
     public KeyCode jump;
+    public KeyCode dash;
+
 
     public float maxJumpHeight = 2.5f;
     public float minJumpHeight = 1.25f;
     public float timeToJumpApex = 0.35f;
     public float gravityScale = 1.75f;
+    public float dashTime;
+    public float dashSpeed;
+    public float dashCoolDown;
+
     float accelerationTimeAir = .125f;
     float accelerationTimeGrounded = 0.045f;
     float moveSpeed = 6;
     float gravity;
     float gravity_fall;
-
     float maxJumpVelocity;
     float minJumpVelocity;
-    Vector3 velocity;
     float velocityXSmoothing;
-    private Controller2D controller;
+    float dashTimeLeft;
+    float lastDash = Mathf.NegativeInfinity;
     //For Debug
     float startHeight = Mathf.NegativeInfinity;
     float maxHeightReached = Mathf.NegativeInfinity;
     bool reachedApex = true;
     float jumpTimer = 0;
     //
+
+    bool isDashing;
+    bool canMove = true;
+
+    int facingDirection;
+
+    Vector3 velocity;
     Vector3 oldVelocity;
 
+    private Controller2D controller;
     public PowerUpInfo powerup;
 
     void Start()
@@ -41,8 +54,6 @@ public class Player_Movement : MonoBehaviour
         gravity_fall = gravity * gravityScale;
         maxJumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
         minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
-
-        Debug.Log("sw: " + Screen.width);
     }
     
     void Jump()
@@ -54,6 +65,31 @@ public class Player_Movement : MonoBehaviour
         reachedApex = false;
     }
 
+    void AttemptToDash()
+    {
+        isDashing = true;
+        dashTimeLeft = dashTime;
+        lastDash = Time.time;
+    }
+
+    void CheckDash()
+    {
+        if (isDashing)
+        {
+            if (dashTimeLeft > 0)
+            {
+                canMove = false;
+                velocity = new Vector2(dashSpeed * facingDirection, 0);
+                dashTimeLeft -= Time.deltaTime;
+            }
+            if (dashTimeLeft <= 0)
+            {
+                isDashing = false;
+                canMove = true;
+            }
+        }
+    }
+
     void Update()
     {
 
@@ -63,17 +99,17 @@ public class Player_Movement : MonoBehaviour
         }
         Vector2 input = new Vector2(Input.GetAxisRaw(PlayerH), Input.GetAxisRaw(PlayerV));
 
-        if(Input.GetKeyDown(jump) && controller.collisions.below)
+        if (Input.GetKeyDown(jump) && controller.collisions.below && canMove)
         {
             Jump();
         }
-        if (Input.GetKeyUp(jump))
+        if (Input.GetKeyUp(jump) && canMove)
         {
             if (velocity.y > minJumpVelocity) {
                 velocity.y = minJumpVelocity;
             }
         }
-        if (!controller.collisions.below && Input.GetKeyDown(jump) && powerup.secondJump)
+        if (!controller.collisions.below && Input.GetKeyDown(jump) && powerup.secondJump && canMove)
         {
             Jump();
             powerup.secondJump = false;
@@ -85,11 +121,12 @@ public class Player_Movement : MonoBehaviour
         }
 
         float targetVelocity = input.x * moveSpeed;
+
         oldVelocity = velocity;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocity, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAir);
-        velocity.y += (!controller.collisions.below && reachedApex?gravity_fall:gravity) * Time.deltaTime;
+        velocity.y += (!controller.collisions.below && reachedApex ? gravity_fall : gravity) * Time.deltaTime;
         velocity.y = Mathf.Min(velocity.y, maxJumpVelocity);
-        Vector3 deltaPos = (oldVelocity + velocity) * 0.5f * Time.deltaTime; 
+        Vector3 deltaPos = (oldVelocity + velocity) * 0.5f * Time.deltaTime;
         controller.Move(deltaPos);
 
         if (!reachedApex && maxHeightReached > transform.position.y)
@@ -100,6 +137,27 @@ public class Player_Movement : MonoBehaviour
             reachedApex = true;
         }
         maxHeightReached = Mathf.Max(transform.position.y, maxHeightReached);
+
+        if (canMove)
+        {
+            if (input.x < 0)
+            {
+                facingDirection = -1;
+            }
+
+            if (input.x > 0)
+            {
+                facingDirection = 1;
+            }
+        }
+        if (Input.GetKeyDown(dash))
+        {
+            if (Time.time >= (lastDash + dashCoolDown)) {
+                AttemptToDash();
+            }
+
+        }
+        CheckDash();
     }
 
     public struct PowerUpInfo
