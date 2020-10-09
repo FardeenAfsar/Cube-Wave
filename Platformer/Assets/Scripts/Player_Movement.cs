@@ -54,8 +54,9 @@ public class Player_Movement : MonoBehaviour
         gravity_fall = gravity * gravityScale;
         maxJumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
         minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
+        
     }
-    
+
     void Jump()
     {
         jumpTimer = 0;
@@ -90,22 +91,20 @@ public class Player_Movement : MonoBehaviour
         }
     }
 
-    void Update()
+    void InputSys()
     {
-
         if (controller.collisions.above || controller.collisions.below)
         {
             velocity.y = 0;
         }
-        Vector2 input = new Vector2(Input.GetAxisRaw(PlayerH), Input.GetAxisRaw(PlayerV));
-
         if (Input.GetKeyDown(jump) && controller.collisions.below && canMove)
         {
             Jump();
         }
         if (Input.GetKeyUp(jump) && canMove)
         {
-            if (velocity.y > minJumpVelocity) {
+            if (velocity.y > minJumpVelocity)
+            {
                 velocity.y = minJumpVelocity;
             }
         }
@@ -115,12 +114,27 @@ public class Player_Movement : MonoBehaviour
             powerup.secondJump = false;
         }
 
+        if (Input.GetKeyDown(dash))
+        {
+            if (Time.time >= (lastDash + dashCoolDown))
+            {
+                AttemptToDash();
+            }
+
+        }
+
+    }
+
+    void Physics()
+    {
+        float inputX = Input.GetAxisRaw(PlayerH);
+
         if (!controller.collisions.below && !reachedApex)
         {
             jumpTimer += Time.deltaTime;
         }
 
-        float targetVelocity = input.x * moveSpeed;
+        float targetVelocity = inputX * moveSpeed;
 
         oldVelocity = velocity;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocity, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAir);
@@ -140,23 +154,22 @@ public class Player_Movement : MonoBehaviour
 
         if (canMove)
         {
-            if (input.x < 0)
+            if (inputX < 0)
             {
                 facingDirection = -1;
             }
 
-            if (input.x > 0)
+            if (inputX > 0)
             {
                 facingDirection = 1;
             }
         }
-        if (Input.GetKeyDown(dash))
-        {
-            if (Time.time >= (lastDash + dashCoolDown)) {
-                AttemptToDash();
-            }
+    }
+    void Update()
+    {
 
-        }
+        InputSys();
+        Physics();
         CheckDash();
     }
 
