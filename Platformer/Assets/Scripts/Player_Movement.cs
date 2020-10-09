@@ -167,7 +167,6 @@ public class Player_Movement : MonoBehaviour
     }
     void Update()
     {
-
         InputSys();
         Physics();
         CheckDash();

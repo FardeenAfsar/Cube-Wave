@@ -11,21 +11,24 @@ public class Controller2D : MonoBehaviour
     public LayerMask otherPlayerMask;
     public LayerMask powerUpMask;
 
-    public GameObject prefabPower;
-    bool powerUpRoutine = true;
 
-    const float skinwidth = .015f;
+    bool powerUpRoutine = true;
+    bool isFirstCollision = true;
+
     public int horizontalRayCount = 4;
     public int verticalRayCount = 4;
 
+    const float skinwidth = .015f;
     float horizontalRaySpacing;
     float verticalRaySpacing;
 
+    public GameObject prefabPower;
+    public CollisionInfo collisions;
     BoxCollider2D colliderbox;
     Player_Movement player_movement;
+    
     RaycastOrigins raycastOrigins;
 
-    public CollisionInfo collisions;
     void Start()
     {
         colliderbox = GetComponent<BoxCollider2D>();
@@ -80,16 +83,27 @@ public class Controller2D : MonoBehaviour
                 collisions.left = directionX == -1;
                 collisions.right = directionX == 1;
             }
-            if (hitPowerUp && powerUpRoutine)
+            if (hitPowerUp)
             {
-                collisions.isPowerUp = true;
                 Vector3 powerPos = hitPowerUp.collider.transform.position;
-                collisions.powerUpCollider = hitPowerUp.collider.gameObject;
-                //Destroy(hitPowerUp.collider.gameObject);
-                player_movement.powerup.secondJump = true;
-                powerUpRoutine = false;
-                StartCoroutine(delay(powerPos, 10f));
+                if (powerUpRoutine)
+                {
+                    collisions.isPowerUp = true;
+                    collisions.powerUpCollider = hitPowerUp.collider.gameObject;
+                    player_movement.powerup.secondJump = true;
+                    StartCoroutine(Delay(powerPos, 10f));
+                    powerUpRoutine = false;
+                }
+                if (collisions.powerOldPos != powerPos)
+                {
+                    collisions.powerOldPos = powerPos;
+                    if (!isFirstCollision)
+                    {
+                        powerUpRoutine = true;
+                    }
+                    isFirstCollision = false;
 
+                }
             }
 
         }
@@ -103,6 +117,7 @@ public class Controller2D : MonoBehaviour
 
         for (int i = 0; i < verticalRayCount; i++)
         {
+
             Vector2 rayOrigin = (directionY == -1) ? raycastOrigins.bottomLeft : raycastOrigins.topLeft;
             rayOrigin += Vector2.right * (verticalRaySpacing * i + velocity.x);
             RaycastHit2D hit2 = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, otherPlayerMask);
@@ -132,20 +147,32 @@ public class Controller2D : MonoBehaviour
                 collisions.above = directionY == 1;
             }
 
-            if (hitPowerUp && powerUpRoutine)
+            if (hitPowerUp)
             {
-                collisions.isPowerUp = true;
                 Vector3 powerPos = hitPowerUp.collider.transform.position;
-                collisions.powerUpCollider = hitPowerUp.collider.gameObject;
-                //Destroy(hitPowerUp.collider.gameObject);
-                player_movement.powerup.secondJump = true;
-                powerUpRoutine = false;
-                StartCoroutine(delay(powerPos, 10f));
+                if (powerUpRoutine)
+                {
+                    collisions.isPowerUp = true;
+                    collisions.powerUpCollider = hitPowerUp.collider.gameObject;
+                    player_movement.powerup.secondJump = true;
+                    StartCoroutine(Delay(powerPos, 10f));
+                    powerUpRoutine = false;
+                }
+                if (collisions.powerOldPos != powerPos)
+                {
+                    collisions.powerOldPos = powerPos;
+                    if (!isFirstCollision)
+                    {
+                        powerUpRoutine = true;
+                    }
+                    isFirstCollision = false;
+
+                }
             }
 
         }
     }
-    IEnumerator delay(Vector3 pos, float delayTime)
+    IEnumerator Delay(Vector3 pos, float delayTime)
     {
         yield return new WaitForSecondsRealtime(delayTime);
         Spawn(pos);
@@ -192,6 +219,9 @@ public class Controller2D : MonoBehaviour
         public bool above, below;
         public bool left, right;
         public bool isDying, isPowerUp;
+
+        public Vector3 powerOldPos;
+
         public GameObject otherCollider;
         public GameObject powerUpCollider;
 
