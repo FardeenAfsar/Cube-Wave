@@ -13,7 +13,6 @@ public class Controller2D : MonoBehaviour
 
 
     bool powerUpRoutine = true;
-    bool isFirstCollision = true;
 
     public int horizontalRayCount = 4;
     public int verticalRayCount = 4;
@@ -65,7 +64,6 @@ public class Controller2D : MonoBehaviour
             RaycastHit2D hit2 = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, otherPlayerMask);
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, collisionMask);
             RaycastHit2D hitPowerUp = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, powerUpMask);
-
             if (hit2)
             {
                 velocity.x = (hit2.distance - skinwidth) * directionX;
@@ -86,6 +84,11 @@ public class Controller2D : MonoBehaviour
             if (hitPowerUp)
             {
                 Vector3 powerPos = hitPowerUp.collider.transform.position;
+                if (collisions.powerOldPos != powerPos)
+                {
+                    collisions.powerOldPos = powerPos;
+                    powerUpRoutine = true;
+                }
                 if (powerUpRoutine)
                 {
                     collisions.isPowerUp = true;
@@ -94,18 +97,8 @@ public class Controller2D : MonoBehaviour
                     StartCoroutine(Delay(powerPos, 10f));
                     powerUpRoutine = false;
                 }
-                if (collisions.powerOldPos != powerPos)
-                {
-                    collisions.powerOldPos = powerPos;
-                    if (!isFirstCollision)
-                    {
-                        powerUpRoutine = true;
-                    }
-                    isFirstCollision = false;
-
-                }
             }
-
+        
         }
     }
 
@@ -150,6 +143,11 @@ public class Controller2D : MonoBehaviour
             if (hitPowerUp)
             {
                 Vector3 powerPos = hitPowerUp.collider.transform.position;
+                if (collisions.powerOldPos != powerPos)
+                {
+                    collisions.powerOldPos = powerPos;
+                    powerUpRoutine = true;
+                }
                 if (powerUpRoutine)
                 {
                     collisions.isPowerUp = true;
@@ -157,16 +155,6 @@ public class Controller2D : MonoBehaviour
                     player_movement.powerup.secondJump = true;
                     StartCoroutine(Delay(powerPos, 10f));
                     powerUpRoutine = false;
-                }
-                if (collisions.powerOldPos != powerPos)
-                {
-                    collisions.powerOldPos = powerPos;
-                    if (!isFirstCollision)
-                    {
-                        powerUpRoutine = true;
-                    }
-                    isFirstCollision = false;
-
                 }
             }
 

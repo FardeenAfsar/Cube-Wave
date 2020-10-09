@@ -9,6 +9,7 @@ public class Player_Movement : MonoBehaviour
     public string PlayerV;
     public KeyCode jump;
     public KeyCode dash;
+    public KeyCode smash;
 
 
     public float maxJumpHeight = 2.5f;
@@ -38,6 +39,7 @@ public class Player_Movement : MonoBehaviour
 
     bool isDashing;
     bool canMove = true;
+    bool isSmash;
 
     int facingDirection;
 
@@ -66,11 +68,31 @@ public class Player_Movement : MonoBehaviour
         reachedApex = false;
     }
 
+    void AttemptToSmash()
+    {
+        isSmash = true;
+    }
+
     void AttemptToDash()
     {
         isDashing = true;
         dashTimeLeft = dashTime;
         lastDash = Time.time;
+    }
+
+    void CheckSmash()
+    {
+        if (isSmash)
+        {
+            canMove = false;
+            velocity = new Vector2(0, -maxJumpVelocity*1.5f);
+        }
+        if (isSmash && controller.collisions.below)
+        {
+            canMove = true;
+            velocity = new Vector2(0, 0);
+            isSmash = false;
+        }
     }
 
     void CheckDash()
@@ -123,6 +145,11 @@ public class Player_Movement : MonoBehaviour
 
         }
 
+        if (Input.GetKeyDown(smash) && !controller.collisions.below && canMove)
+        {
+            AttemptToSmash();
+        }
+
     }
 
     void Physics()
@@ -170,6 +197,7 @@ public class Player_Movement : MonoBehaviour
         InputSys();
         Physics();
         CheckDash();
+        CheckSmash();
     }
 
     public struct PowerUpInfo
