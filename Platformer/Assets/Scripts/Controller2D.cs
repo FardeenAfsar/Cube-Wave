@@ -91,9 +91,12 @@ public class Controller2D : MonoBehaviour
                 }
                 if (powerUpRoutine)
                 {
+                    float rand = Random.value;
                     collisions.isPowerUp = true;
                     collisions.powerUpCollider = hitPowerUp.collider.gameObject;
-                    player_movement.powerup.secondJump = true;
+                    player_movement.powerup.secondJump = (rand <= 0.4);
+                    player_movement.powerup.dashAbility = (rand >= 0.6);
+                    player_movement.powerup.smashAbility = (rand > 0.4 && rand < 0.6);
                     StartCoroutine(Delay(powerPos, 10f));
                     powerUpRoutine = false;
                 }
@@ -150,9 +153,12 @@ public class Controller2D : MonoBehaviour
                 }
                 if (powerUpRoutine)
                 {
+                    float rand = Random.value;
                     collisions.isPowerUp = true;
                     collisions.powerUpCollider = hitPowerUp.collider.gameObject;
-                    player_movement.powerup.secondJump = true;
+                    player_movement.powerup.secondJump = (rand <= 0.4);
+                    player_movement.powerup.dashAbility = (rand >= 0.6);
+                    player_movement.powerup.smashAbility = (rand > 0.4 && rand < 0.6);
                     StartCoroutine(Delay(powerPos, 10f));
                     powerUpRoutine = false;
                 }

@@ -92,6 +92,7 @@ public class Player_Movement : MonoBehaviour
             canMove = true;
             velocity = new Vector2(0, 0);
             isSmash = false;
+            powerup.smashAbility = false;
         }
     }
 
@@ -109,6 +110,7 @@ public class Player_Movement : MonoBehaviour
             {
                 isDashing = false;
                 canMove = true;
+                powerup.dashAbility = false;
             }
         }
     }
@@ -136,7 +138,7 @@ public class Player_Movement : MonoBehaviour
             powerup.secondJump = false;
         }
 
-        if (Input.GetKeyDown(dash))
+        if (Input.GetKeyDown(dash) && powerup.dashAbility)
         {
             if (Time.time >= (lastDash + dashCoolDown))
             {
@@ -145,7 +147,7 @@ public class Player_Movement : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(smash) && !controller.collisions.below && canMove)
+        if (Input.GetKeyDown(smash) && !controller.collisions.below && canMove && powerup.smashAbility)
         {
             AttemptToSmash();
         }
@@ -202,6 +204,6 @@ public class Player_Movement : MonoBehaviour
 
     public struct PowerUpInfo
     {
-        public bool secondJump;
+        public bool secondJump, dashAbility, smashAbility;
     }
 }
