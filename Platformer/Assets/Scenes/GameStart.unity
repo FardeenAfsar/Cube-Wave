@@ -179,6 +179,8 @@ GameObject:
   m_Component:
   - component: {fileID: 177337604}
   - component: {fileID: 177337605}
+  - component: {fileID: 177337606}
+  - component: {fileID: 177337607}
   m_Layer: 0
   m_Name: LTrees
   m_TagString: Untagged
@@ -250,6 +252,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &177337606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177337603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 527924b6756eb6242b538694d13b0c05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 0}
+  step: 1
+  scale: 0
+--- !u!114 &177337607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177337603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06a5d05f807ed204d94b1c9cd552fb73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  step: 0.16
+  scale: 0.08
+  startVal: 0.02
 --- !u!1 &282373085
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,6 +401,7 @@ GameObject:
   m_Component:
   - component: {fileID: 444597493}
   - component: {fileID: 444597494}
+  - component: {fileID: 444597495}
   m_Layer: 0
   m_Name: Trees
   m_TagString: Untagged
@@ -440,6 +473,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &444597495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 444597492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06a5d05f807ed204d94b1c9cd552fb73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  step: 0
+  scale: 0
+  startVal: 0
 --- !u!1 &516326274
 GameObject:
   m_ObjectHideFlags: 0
@@ -932,6 +980,7 @@ GameObject:
   m_Component:
   - component: {fileID: 813935489}
   - component: {fileID: 813935488}
+  - component: {fileID: 813935490}
   m_Layer: 0
   m_Name: Trees
   m_TagString: Untagged
@@ -1003,6 +1052,21 @@ Transform:
   m_Father: {fileID: 282373086}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -5.9830003}
+--- !u!114 &813935490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 813935487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06a5d05f807ed204d94b1c9cd552fb73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  step: 0
+  scale: 0
+  startVal: 0
 --- !u!1 &923690675
 GameObject:
   m_ObjectHideFlags: 0
@@ -1118,8 +1182,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1724380139
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 199a99bcef0c8904da1476b0bab1e742, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1162,10 +1226,14 @@ MonoBehaviour:
   PlayerV: P1V
   jump: 273
   dash: 47
+  smash: 46
   maxJumpHeight: 2.75
   minJumpHeight: 0.5
   timeToJumpApex: 0.35
   gravityScale: 1.75
+  dashTime: 0.2
+  dashSpeed: 20
+  dashCoolDown: 0.5
 --- !u!114 &934539934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1187,10 +1255,10 @@ MonoBehaviour:
   powerUpMask:
     serializedVersion: 2
     m_Bits: 2048
-  prefabPower: {fileID: 3987913685491987603, guid: cedd241bf4a47c14491c68671664da80,
-    type: 3}
   horizontalRayCount: 4
   verticalRayCount: 4
+  prefabPower: {fileID: 3987913685491987603, guid: cedd241bf4a47c14491c68671664da80,
+    type: 3}
 --- !u!61 &934539935
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1334,6 +1402,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1146555553}
   - component: {fileID: 1146555552}
+  - component: {fileID: 1146555554}
   m_Layer: 0
   m_Name: LTrees
   m_TagString: Untagged
@@ -1405,6 +1474,21 @@ Transform:
   m_Father: {fileID: 282373086}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -5.9830003}
+--- !u!114 &1146555554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146555551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06a5d05f807ed204d94b1c9cd552fb73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  step: 2
+  scale: 1
+  startVal: 0
 --- !u!1 &1147142366
 GameObject:
   m_ObjectHideFlags: 0
@@ -1415,6 +1499,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1147142367}
   - component: {fileID: 1147142368}
+  - component: {fileID: 1147142369}
   m_Layer: 0
   m_Name: Trees
   m_TagString: Untagged
@@ -1486,6 +1571,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1147142369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147142366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06a5d05f807ed204d94b1c9cd552fb73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  step: 0
+  scale: 0
+  startVal: 0
 --- !u!1 &1183634778
 GameObject:
   m_ObjectHideFlags: 0
@@ -1553,6 +1653,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1274137467}
   - component: {fileID: 1274137468}
+  - component: {fileID: 1274137469}
   m_Layer: 0
   m_Name: LTrees
   m_TagString: Untagged
@@ -1624,6 +1725,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1274137469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274137466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06a5d05f807ed204d94b1c9cd552fb73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  step: 2
+  scale: 1
+  startVal: 0
 --- !u!1 &1316530562
 GameObject:
   m_ObjectHideFlags: 0
@@ -1634,6 +1750,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1316530563}
   - component: {fileID: 1316530564}
+  - component: {fileID: 1316530565}
+  - component: {fileID: 1316530566}
   m_Layer: 0
   m_Name: LTrees
   m_TagString: Untagged
@@ -1705,6 +1823,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1316530565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316530562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 527924b6756eb6242b538694d13b0c05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 0}
+  step: 1
+  scale: 0
+--- !u!114 &1316530566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316530562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06a5d05f807ed204d94b1c9cd552fb73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  step: 0.16
+  scale: 0.08
+  startVal: 0.02
 --- !u!1 &1392960287
 GameObject:
   m_ObjectHideFlags: 0
@@ -1715,6 +1863,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1392960288}
   - component: {fileID: 1392960289}
+  - component: {fileID: 1392960290}
   m_Layer: 0
   m_Name: LTrees
   m_TagString: Untagged
@@ -1786,6 +1935,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1392960290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392960287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06a5d05f807ed204d94b1c9cd552fb73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  step: 2
+  scale: 1
+  startVal: 0
 --- !u!1 &1904670891
 GameObject:
   m_ObjectHideFlags: 0
@@ -2060,10 +2224,14 @@ MonoBehaviour:
   PlayerV: P2V
   jump: 119
   dash: 107
+  smash: 106
   maxJumpHeight: 2.75
   minJumpHeight: 0.5
   timeToJumpApex: 0.35
   gravityScale: 1.75
+  dashTime: 0.2
+  dashSpeed: 20
+  dashCoolDown: 0.5
 --- !u!114 &2081785371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2085,10 +2253,10 @@ MonoBehaviour:
   powerUpMask:
     serializedVersion: 2
     m_Bits: 2048
-  prefabPower: {fileID: 3987913685491987603, guid: cedd241bf4a47c14491c68671664da80,
-    type: 3}
   horizontalRayCount: 4
   verticalRayCount: 4
+  prefabPower: {fileID: 3987913685491987603, guid: cedd241bf4a47c14491c68671664da80,
+    type: 3}
 --- !u!61 &2081785372
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2151,8 +2319,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1724380139
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 199a99bcef0c8904da1476b0bab1e742, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

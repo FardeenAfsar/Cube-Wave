@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 [RequireComponent (typeof(Controller2D))]
 public class Player_Movement : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class Player_Movement : MonoBehaviour
     public KeyCode smash;
 
 
+
     public float maxJumpHeight = 2.5f;
     public float minJumpHeight = 1.25f;
     public float timeToJumpApex = 0.35f;
@@ -19,6 +21,7 @@ public class Player_Movement : MonoBehaviour
     public float dashTime;
     public float dashSpeed;
     public float dashCoolDown;
+
 
     float accelerationTimeAir = .125f;
     float accelerationTimeGrounded = 0.045f;
@@ -30,6 +33,8 @@ public class Player_Movement : MonoBehaviour
     float velocityXSmoothing;
     float dashTimeLeft;
     float lastDash = Mathf.NegativeInfinity;
+
+    
     //For Debug
     float startHeight = Mathf.NegativeInfinity;
     float maxHeightReached = Mathf.NegativeInfinity;
@@ -49,6 +54,8 @@ public class Player_Movement : MonoBehaviour
     private Controller2D controller;
     public PowerUpInfo powerup;
 
+
+
     void Start()
     {
         controller = GetComponent<Controller2D>();
@@ -56,7 +63,7 @@ public class Player_Movement : MonoBehaviour
         gravity_fall = gravity * gravityScale;
         maxJumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
         minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
-        
+        UnityEngine.Rendering.Universal.ChromaticAberration myChromaticAberration;
     }
 
     void Jump()
@@ -138,7 +145,7 @@ public class Player_Movement : MonoBehaviour
             powerup.secondJump = false;
         }
 
-        if (Input.GetKeyDown(dash) && powerup.dashAbility)
+        if (Input.GetKeyDown(dash)/* && powerup.dashAbility */)
         {
             if (Time.time >= (lastDash + dashCoolDown))
             {
@@ -200,6 +207,7 @@ public class Player_Movement : MonoBehaviour
         Physics();
         CheckDash();
         CheckSmash();
+        
     }
 
     public struct PowerUpInfo
