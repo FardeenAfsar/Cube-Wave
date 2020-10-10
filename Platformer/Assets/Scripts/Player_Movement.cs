@@ -54,8 +54,6 @@ public class Player_Movement : MonoBehaviour
     private Controller2D controller;
     public PowerUpInfo powerup;
 
-
-
     void Start()
     {
         controller = GetComponent<Controller2D>();
@@ -63,7 +61,6 @@ public class Player_Movement : MonoBehaviour
         gravity_fall = gravity * gravityScale;
         maxJumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
         minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
-        UnityEngine.Rendering.Universal.ChromaticAberration myChromaticAberration;
     }
 
     void Jump()
@@ -151,10 +148,9 @@ public class Player_Movement : MonoBehaviour
             {
                 AttemptToDash();
             }
-
         }
 
-        if (Input.GetKeyDown(smash) && !controller.collisions.below && canMove && powerup.smashAbility)
+        if (Input.GetKeyDown(smash) && !controller.collisions.below && canMove /* && powerup.smashAbility */)
         {
             AttemptToSmash();
         }
