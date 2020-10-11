@@ -15,10 +15,18 @@ public class DeathAnimation : MonoBehaviour
     public GameObject Round1;
     public GameObject Round2;
     public GameObject Final;
+    
     Material materialRound;
+
 
     static int P2Points = 0;
     static int P1Points = 0;
+    public static int P1Wins = 0;
+    public static int P2Wins = 0;
+
+    public static string winner;
+
+
 
     Controller2D controller;
     void Start()
@@ -26,8 +34,14 @@ public class DeathAnimation : MonoBehaviour
         
         controller = GetComponent<Controller2D>();
         material = otherPlayer.GetComponent<SpriteRenderer>().material;
-        
-        if (P1Points == 0 && P2Points == 0 )
+        RoundTransitions();
+
+    }
+
+
+    void RoundTransitions()
+    {
+        if (P1Points == 0 && P2Points == 0)
         {
             materialRound = Round1.GetComponent<SpriteRenderer>().material;
             Round1.SetActive(true);
@@ -48,7 +62,7 @@ public class DeathAnimation : MonoBehaviour
 
         GetComponent<Player_Movement>().enabled = false;
         StartCoroutine(PlayerTransitionIn());
-        StartCoroutine(RoundFadeOut(Round)); 
+        StartCoroutine(RoundFadeOut(Round));
     }
 
 
@@ -73,6 +87,36 @@ public class DeathAnimation : MonoBehaviour
         Round.SetActive(false);
     }
 
+    void PlayerScore()
+    {
+        if (controller.collisions.otherCollider.tag == "Player1") { P2Points++; }
+        else { P1Points++; }
+
+        if (P1Points > 1)
+        {
+            Debug.Log("Pink won");
+            winner = "Player1 Wins";
+            P1Wins++;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            P1Points = 0;
+            P2Points = 0;
+        }
+        else if (P2Points > 1)
+        {
+            Debug.Log("Cyan Won");
+            winner = "Player2 Wins";
+            P2Wins++;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            P1Points = 0;
+            P2Points = 0;
+        }
+        else
+        {
+            Debug.Log("Pink: " + P1Points + "Cyan: " + P2Points);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+    }
+
     void Update()
     {
         if (controller.collisions.isDying)
@@ -84,29 +128,7 @@ public class DeathAnimation : MonoBehaviour
                 fade = 0f;
                 controller.collisions.isDying = false;
                 Destroy(controller.collisions.otherCollider);
-
-
-                if (controller.collisions.otherCollider.tag == "Player1") { P2Points++; }
-                else { P1Points++; }
-                
-                if (P1Points > 1)
-                {
-                    Debug.Log("Pink won");
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
-                    P1Points = 0;
-                    P2Points = 0;
-                }else if (P2Points > 1)
-                {
-                    Debug.Log("Cyan Won");
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
-                    P1Points = 0;
-                    P2Points = 0;
-                }
-                else
-                {
-                    Debug.Log("Pink: " + P1Points + "Cyan: " + P2Points);
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-                }
+                PlayerScore();
 
             }
 

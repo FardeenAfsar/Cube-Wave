@@ -11,7 +11,6 @@ public class Controller2D : MonoBehaviour
     public LayerMask otherPlayerMask;
     public LayerMask powerUpMask;
 
-
     bool powerUpRoutine = true;
 
     public int horizontalRayCount = 4;
@@ -23,6 +22,7 @@ public class Controller2D : MonoBehaviour
 
     public GameObject prefabPower;
     public CollisionInfo collisions;
+    
     BoxCollider2D colliderbox;
     Player_Movement player_movement;
     
