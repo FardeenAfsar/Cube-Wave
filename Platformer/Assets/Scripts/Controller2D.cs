@@ -91,12 +91,11 @@ public class Controller2D : MonoBehaviour
                 }
                 if (powerUpRoutine)
                 {
-                    float rand = Random.value;
+                    collisions.rand = Random.value;
                     collisions.isPowerUp = true;
                     collisions.powerUpCollider = hitPowerUp.collider.gameObject;
-                    player_movement.powerup.secondJump = (rand <= 0.4);
-                    player_movement.powerup.dashAbility = (rand >= 0.6);
-                    player_movement.powerup.smashAbility = (rand > 0.4 && rand < 0.6);
+
+                    PowerSys(collisions.rand);
                     StartCoroutine(Delay(powerPos, 10f));
                     powerUpRoutine = false;
                 }
@@ -153,12 +152,11 @@ public class Controller2D : MonoBehaviour
                 }
                 if (powerUpRoutine)
                 {
-                    float rand = Random.value;
+                    collisions.rand = Random.value;
                     collisions.isPowerUp = true;
                     collisions.powerUpCollider = hitPowerUp.collider.gameObject;
-                    player_movement.powerup.secondJump = (rand <= 0.4);
-                    player_movement.powerup.dashAbility = (rand >= 0.6);
-                    player_movement.powerup.smashAbility = (rand > 0.4 && rand < 0.6);
+
+                    PowerSys(collisions.rand);
                     StartCoroutine(Delay(powerPos, 10f));
                     powerUpRoutine = false;
                 }
@@ -172,6 +170,38 @@ public class Controller2D : MonoBehaviour
         Spawn(pos);
 
     }
+
+    void PowerSys(float rand)
+    {
+        if (!player_movement.powerup.secondJump && rand <= 0.4)
+        {
+            player_movement.powerup.secondJump = true;
+        }
+        else if (!player_movement.powerup.dashAbility && (rand >= 0.6 || rand <= 0.4))
+        {
+            player_movement.powerup.dashAbility = true;
+        }
+        else if (!player_movement.powerup.smashAbility)
+        {
+            player_movement.powerup.smashAbility = true;
+        }else if (player_movement.powerup.dashAbility)
+        {
+            player_movement.powerup.secondJump = true;
+        }else if (player_movement.powerup.secondJump)
+        {
+            player_movement.powerup.dashAbility = true;
+        }
+        else if (rand < 0.5)
+        {
+            player_movement.powerup.secondJump = true;
+        }
+        else
+        {
+            player_movement.powerup.dashAbility = true;
+        }
+    }
+
+
 
     void Spawn(Vector3 pos)
     {
@@ -218,6 +248,8 @@ public class Controller2D : MonoBehaviour
 
         public GameObject otherCollider;
         public GameObject powerUpCollider;
+
+        public float rand;
 
         public void Reset()
         {

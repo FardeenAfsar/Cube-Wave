@@ -35,12 +35,8 @@ public class Player_Movement : MonoBehaviour
     float lastDash = Mathf.NegativeInfinity;
 
     
-    //For Debug
-    float startHeight = Mathf.NegativeInfinity;
     float maxHeightReached = Mathf.NegativeInfinity;
     bool reachedApex = true;
-    float jumpTimer = 0;
-    //
 
     bool isDashing;
     bool canMove = true;
@@ -54,6 +50,10 @@ public class Player_Movement : MonoBehaviour
     private Controller2D controller;
     public PowerUpInfo powerup;
 
+    public GameObject UpArrow;
+    public GameObject DashArrow;
+    public GameObject DownArrow;
+
     void Start()
     {
         controller = GetComponent<Controller2D>();
@@ -65,10 +65,8 @@ public class Player_Movement : MonoBehaviour
 
     void Jump()
     {
-        jumpTimer = 0;
         maxHeightReached = Mathf.NegativeInfinity;
         velocity.y = maxJumpVelocity;
-        startHeight = transform.position.y;
         reachedApex = false;
     }
 
@@ -93,6 +91,7 @@ public class Player_Movement : MonoBehaviour
         }
         if (isSmash && controller.collisions.below)
         {
+            Debug.Log("SmashReset");
             canMove = true;
             velocity = new Vector2(0, 0);
             isSmash = false;
@@ -112,6 +111,7 @@ public class Player_Movement : MonoBehaviour
             }
             if (dashTimeLeft <= 0)
             {
+                Debug.Log("DashReset");
                 isDashing = false;
                 canMove = true;
                 powerup.dashAbility = false;
@@ -138,11 +138,12 @@ public class Player_Movement : MonoBehaviour
         }
         if (!controller.collisions.below && Input.GetKeyDown(jump) && powerup.secondJump && canMove)
         {
+            Debug.Log("JumpReset");
             Jump();
             powerup.secondJump = false;
         }
 
-        if (Input.GetKeyDown(dash)/* && powerup.dashAbility */)
+        if (Input.GetKeyDown(dash) && powerup.dashAbility )
         {
             if (Time.time >= (lastDash + dashCoolDown))
             {
@@ -150,7 +151,7 @@ public class Player_Movement : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(smash) && !controller.collisions.below && canMove /* && powerup.smashAbility */)
+        if (Input.GetKeyDown(smash) && !controller.collisions.below && canMove && powerup.smashAbility)
         {
             AttemptToSmash();
         }
@@ -160,12 +161,6 @@ public class Player_Movement : MonoBehaviour
     void Physics()
     {
         float inputX = Input.GetAxisRaw(PlayerH);
-
-        if (!controller.collisions.below && !reachedApex)
-        {
-            jumpTimer += Time.deltaTime;
-        }
-
         float targetVelocity = inputX * moveSpeed;
 
         oldVelocity = velocity;
@@ -177,9 +172,6 @@ public class Player_Movement : MonoBehaviour
 
         if (!reachedApex && maxHeightReached > transform.position.y)
         {
-            float delta = maxHeightReached - startHeight;
-            float error = maxJumpHeight - delta;
-            Debug.Log($"error: {error:F4}, delta: {delta:F4}, time: {jumpTimer:F4}, gravity: {gravity:F4}, jumpforce: {maxJumpVelocity:F4}");
             reachedApex = true;
         }
         maxHeightReached = Mathf.Max(transform.position.y, maxHeightReached);
@@ -197,13 +189,21 @@ public class Player_Movement : MonoBehaviour
             }
         }
     }
+
+    void CheckPowerCue()
+    {
+        UpArrow.SetActive(powerup.secondJump);
+        DownArrow.SetActive(powerup.smashAbility);
+        DashArrow.SetActive(powerup.dashAbility);
+    }
+
     void Update()
     {
         InputSys();
         Physics();
         CheckDash();
         CheckSmash();
-        
+        CheckPowerCue();
     }
 
     public struct PowerUpInfo
