@@ -140,6 +140,7 @@ public class Controller2D : MonoBehaviour
 
                 collisions.below = directionY == -1;
                 collisions.above = directionY == 1;
+
             }
 
             if (hitPowerUp)

@@ -115,7 +115,6 @@ public class Player_Movement : MonoBehaviour
             }
             if (dashTimeLeft <= 0)
             {
-                Debug.Log("DashReset");
                 isDashing = false;
                 canMove = true;
                 powerup.dashAbility = false;
@@ -142,7 +141,6 @@ public class Player_Movement : MonoBehaviour
         }
         if (!controller.collisions.below && Input.GetKeyDown(jump) && powerup.secondJump && canMove)
         {
-            Debug.Log("JumpReset");
             Jump();
             powerup.secondJump = false;
         }
