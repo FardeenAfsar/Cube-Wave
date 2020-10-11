@@ -54,6 +54,7 @@ public class Player_Movement : MonoBehaviour
     public GameObject DashArrow;
     public GameObject DownArrow;
 
+
     void Start()
     {
         controller = GetComponent<Controller2D>();
@@ -61,6 +62,9 @@ public class Player_Movement : MonoBehaviour
         gravity_fall = gravity * gravityScale;
         maxJumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
         minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
+
+        
+
     }
 
     void Jump()
