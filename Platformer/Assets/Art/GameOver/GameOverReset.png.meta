@@ -1,7 +1,13 @@
 fileFormatVersion: 2
-guid: ec19abe42a209194f964841ad28f329e
+guid: 67d27144dbd9a594084391b0c12a8dc6
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -5024202820525674660
+    second: GameOverReset_0
+  - first:
+      213: 8984959434601407170
+    second: GameOverReset_1
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -109,7 +115,28 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: GameOverReset_0
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 35
+        width: 647
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5f2d037722764ab0800000000000000
+      internalID: -5024202820525674660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

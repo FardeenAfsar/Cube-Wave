@@ -1,46 +1,10 @@
 fileFormatVersion: 2
-guid: 02333c9c0aea1fb41b3bcb93ddbf6961
+guid: 074910c69eeea3647a1ff6066abb47ea
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -300852493059462816
-    second: GameOverBack2Menu_0
-  - first:
-      213: 336151252231434732
-    second: GameOverBack2Menu_1
-  - first:
-      213: -4841707797619638822
-    second: GameOverBack2Menu_2
-  - first:
-      213: -5328578274297979498
-    second: GameOverBack2Menu_3
-  - first:
-      213: 1876766149354064160
-    second: GameOverBack2Menu_4
-  - first:
-      213: 5102466138301490696
-    second: GameOverBack2Menu_5
-  - first:
-      213: 4277560086295090292
-    second: GameOverBack2Menu_6
-  - first:
-      213: -687566886745437413
-    second: GameOverBack2Menu_7
-  - first:
-      213: -6004788574548041115
-    second: GameOverBack2Menu_8
-  - first:
-      213: -1825295182453181234
-    second: GameOverBack2Menu_9
-  - first:
-      213: 3864155749810720647
-    second: GameOverBack2Menu_10
-  - first:
-      213: -5854127924235410433
-    second: GameOverBack2Menu_11
-  - first:
-      213: -2184806586392022944
-    second: GameOverBack2Menu_12
+      213: 2350898672769092702
+    second: GameOverB2M2_0
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -150,43 +114,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GameOverBack2Menu_0
+      name: GameOverB2M2_0
       rect:
         serializedVersion: 2
-        x: 506
-        y: 537
-        width: 946
-        height: 44
+        x: 503
+        y: 533
+        width: 952
+        height: 52
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0696665604823dbf0800000000000000
-      internalID: -300852493059462816
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GameOverBack2Menu_7
-      rect:
-        serializedVersion: 2
-        x: 1087
-        y: 537
-        width: 14
-        height: 44
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b1b87343f854576f0800000000000000
-      internalID: -687566886745437413
+      spriteID: e5cc65523e110a020800000000000000
+      internalID: 2350898672769092702
       vertices: []
       indices: 
       edges: []

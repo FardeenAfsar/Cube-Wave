@@ -1,7 +1,13 @@
 fileFormatVersion: 2
-guid: 82d47df617055b949836d0758d39b4e7
+guid: 2ad46f56759e1834e9f5527a439e2509
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -3355753473046676182
+    second: GameOverQuit_0
+  - first:
+      213: 3077028955633493187
+    second: GameOverQuit_1
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -109,7 +115,28 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: GameOverQuit_0
+      rect:
+        serializedVersion: 2
+        x: 795
+        y: 448
+        width: 221
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2df44deef7fd61d0800000000000000
+      internalID: -3355753473046676182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
