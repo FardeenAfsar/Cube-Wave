@@ -10,25 +10,58 @@ public class MainMenu : MonoBehaviour
     public TextMeshProUGUI ScoreP2;
     public TextMeshProUGUI Winner;
 
+    public Animator transition;
+
+    static bool isPlay = false;
+    static bool isPlayAgain = false;
+    static bool isBack = false;
+
+    public float transitionTime = 1f;
     private void Start()
     {
         ScoreP1.text = DeathAnimation.P1Wins.ToString();
         ScoreP2.text = DeathAnimation.P2Wins.ToString();
         Winner.text = DeathAnimation.winner;
+        isPlay = false;
+        isPlayAgain = false;
+        isBack = false;
     }
 
+    private void Update()
+    {
+        if (isPlay && SceneManager.GetActiveScene().buildIndex < 1)
+        {
+            StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
+        }
+        if (isPlayAgain && SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex - 1));
+        }
+        if (isBack && SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex - 2));
+        }
+    }
     public void PlayGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        isPlay = true;
     }
+
+    IEnumerator LoadLevel(int levelIndex)
+    {
+        transition.SetTrigger("Start");
+        yield return new WaitForSeconds(transitionTime);
+        SceneManager.LoadScene(levelIndex);
+    }
+
 
     public void PlayAgain()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        isPlayAgain = true;
     }
     public void BackToMainMenu()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
+        isBack = true;
     }
     public void ResetScore()
     {

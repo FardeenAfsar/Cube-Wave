@@ -38,7 +38,6 @@ public class DeathAnimation : MonoBehaviour
 
     }
 
-
     void RoundTransitions()
     {
         if (P1Points == 0 && P2Points == 0)
@@ -65,8 +64,6 @@ public class DeathAnimation : MonoBehaviour
         StartCoroutine(RoundFadeOut(Round));
     }
 
-
-
     IEnumerator PlayerTransitionIn()
     {
         for (float f = 0.01f; f <= 1; f += 0.02f)
@@ -79,7 +76,7 @@ public class DeathAnimation : MonoBehaviour
 
     IEnumerator RoundFadeOut(GameObject Round)
     {
-        for (float f = 1.5f; f >= -0.05f; f -=0.02f)
+        for (float f = 1.5f; f >= 0.05; f -=0.02f)
         {
             materialRound.SetFloat("_Step",f);
             yield return new WaitForSeconds(0.02f);
@@ -116,6 +113,8 @@ public class DeathAnimation : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
+
+
 
     void Update()
     {
