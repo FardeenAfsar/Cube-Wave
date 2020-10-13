@@ -16,12 +16,16 @@ public class MainMenu : MonoBehaviour
     static bool isPlayAgain = false;
     static bool isBack = false;
 
+    public int sceneNumber;
+
     public float transitionTime = 1f;
     private void Start()
     {
-        ScoreP1.text = DeathAnimation.P1Wins.ToString();
-        ScoreP2.text = DeathAnimation.P2Wins.ToString();
-        Winner.text = DeathAnimation.winner;
+        if (sceneNumber == 1) {
+            ScoreP1.text = DeathAnimation.P1Wins.ToString();
+            ScoreP2.text = DeathAnimation.P2Wins.ToString();
+            Winner.text = DeathAnimation.winner;
+        }
         isPlay = false;
         isPlayAgain = false;
         isBack = false;
@@ -29,17 +33,19 @@ public class MainMenu : MonoBehaviour
 
     private void Update()
     {
-        if (isPlay && SceneManager.GetActiveScene().buildIndex < 1)
-        {
-            StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
-        }
-        if (isPlayAgain && SceneManager.GetActiveScene().buildIndex == 2)
-        {
-            StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex - 1));
-        }
-        if (isBack && SceneManager.GetActiveScene().buildIndex == 2)
-        {
-            StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex - 2));
+        if (sceneNumber == 2) {
+            if (isPlay && SceneManager.GetActiveScene().buildIndex < 1)
+            {
+                StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
+            }
+            if (isPlayAgain && SceneManager.GetActiveScene().buildIndex == 2)
+            {
+                StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex - 1));
+            }
+            if (isBack && SceneManager.GetActiveScene().buildIndex == 2)
+            {
+                StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex - 2));
+            }
         }
     }
     public void PlayGame()

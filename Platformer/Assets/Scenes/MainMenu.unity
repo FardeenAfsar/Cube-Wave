@@ -684,6 +684,7 @@ MonoBehaviour:
   ScoreP2: {fileID: 0}
   Winner: {fileID: 0}
   transition: {fileID: 0}
+  sceneNumber: 0
   transitionTime: 0
 --- !u!1 &1160611094
 GameObject:
@@ -1312,6 +1313,11 @@ PrefabInstance:
         type: 3}
       propertyPath: transitionTime
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5675800691770275650, guid: 4bbfba9ec7fdbc848948224462cd6fa2,
+        type: 3}
+      propertyPath: sceneNumber
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5916016502515142391, guid: 4bbfba9ec7fdbc848948224462cd6fa2,
         type: 3}
