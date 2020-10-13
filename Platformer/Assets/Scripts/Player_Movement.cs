@@ -38,9 +38,9 @@ public class Player_Movement : MonoBehaviour
     float maxHeightReached = Mathf.NegativeInfinity;
     bool reachedApex = true;
 
-    bool isDashing;
+    public bool isDashing;
     bool canMove = true;
-    bool isSmash;
+    public bool isSmash;
 
     int facingDirection;
 
@@ -148,7 +148,7 @@ public class Player_Movement : MonoBehaviour
             powerup.secondJump = false;
         }
 
-        if (Input.GetKeyDown(dash) && powerup.dashAbility )
+        if (Input.GetKeyDown(dash)/* && powerup.dashAbility */)
         {
             if (Time.time >= (lastDash + dashCoolDown))
             {
@@ -156,7 +156,7 @@ public class Player_Movement : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(smash) && !controller.collisions.below && canMove && powerup.smashAbility)
+        if (Input.GetKeyDown(smash) && !controller.collisions.below && canMove /* && powerup.smashAbility */)
         {
             AttemptToSmash();
         }

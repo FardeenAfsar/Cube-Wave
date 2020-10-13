@@ -82,13 +82,11 @@ public class MainMenu : MonoBehaviour
         ScoreP1.text = DeathAnimation.P1Wins.ToString();
         ScoreP2.text = DeathAnimation.P2Wins.ToString();
     }
-
     public void QuitGame()
     {
         clickAudio.Play();
         Application.Quit();
     }
-
     public void HowToPlayAudio()
     {
         clickAudio.Play();
