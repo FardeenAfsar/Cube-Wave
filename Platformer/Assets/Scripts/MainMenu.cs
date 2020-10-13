@@ -12,6 +12,8 @@ public class MainMenu : MonoBehaviour
 
     public Animator transition;
 
+    public AudioSource clickAudio;
+
     static bool isPlay = false;
     static bool isPlayAgain = false;
     static bool isBack = false;
@@ -50,6 +52,7 @@ public class MainMenu : MonoBehaviour
     }
     public void PlayGame()
     {
+        clickAudio.Play();
         isPlay = true;
     }
 
@@ -63,14 +66,17 @@ public class MainMenu : MonoBehaviour
 
     public void PlayAgain()
     {
+        clickAudio.Play();
         isPlayAgain = true;
     }
     public void BackToMainMenu()
     {
+        clickAudio.Play();
         isBack = true;
     }
     public void ResetScore()
     {
+        clickAudio.Play();
         DeathAnimation.P1Wins = 0;
         DeathAnimation.P2Wins = 0;
         ScoreP1.text = DeathAnimation.P1Wins.ToString();
@@ -79,6 +85,12 @@ public class MainMenu : MonoBehaviour
 
     public void QuitGame()
     {
+        clickAudio.Play();
         Application.Quit();
+    }
+
+    public void HowToPlayAudio()
+    {
+        clickAudio.Play();
     }
 }

@@ -54,6 +54,9 @@ public class Player_Movement : MonoBehaviour
     public GameObject DashArrow;
     public GameObject DownArrow;
 
+    public AudioSource audioDash;
+    public AudioSource audioJump;
+    public AudioSource audioSmash;
 
     void Start()
     {
@@ -69,11 +72,13 @@ public class Player_Movement : MonoBehaviour
         maxHeightReached = Mathf.NegativeInfinity;
         velocity.y = maxJumpVelocity;
         reachedApex = false;
+        audioJump.Play();
     }
 
     void AttemptToSmash()
     {
         isSmash = true;
+        audioSmash.Play();
     }
 
     void AttemptToDash()
@@ -81,6 +86,7 @@ public class Player_Movement : MonoBehaviour
         isDashing = true;
         dashTimeLeft = dashTime;
         lastDash = Time.time;
+        audioDash.Play();
     }
 
     void CheckSmash()
