@@ -11,6 +11,8 @@ public class DeathAnimation : MonoBehaviour
     float fade = 1f;
     public float dissolveTime = 1f;
 
+    public Animator audioAnim;
+
     private GameObject Round;
     public GameObject Round1;
     public GameObject Round2;
@@ -26,17 +28,14 @@ public class DeathAnimation : MonoBehaviour
 
     public static string winner;
 
-
-
     Controller2D controller;
     void Start()
     {
-        
         controller = GetComponent<Controller2D>();
         material = otherPlayer.GetComponent<SpriteRenderer>().material;
         RoundTransitions();
-
     }
+
 
     void RoundTransitions()
     {
@@ -91,7 +90,6 @@ public class DeathAnimation : MonoBehaviour
 
         if (P1Points > 1)
         {
-            Debug.Log("Pink won");
             winner = "Player1 Wins";
             P1Wins++;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
@@ -100,7 +98,6 @@ public class DeathAnimation : MonoBehaviour
         }
         else if (P2Points > 1)
         {
-            Debug.Log("Cyan Won");
             winner = "Player2 Wins";
             P2Wins++;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
@@ -109,11 +106,20 @@ public class DeathAnimation : MonoBehaviour
         }
         else
         {
-            Debug.Log("Pink: " + P1Points + "Cyan: " + P2Points);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            if (gameObject != null) {
+                StartCoroutine(ChangeScene());
+            }
         }
     }
 
+
+    IEnumerator ChangeScene()
+    {
+        audioAnim.SetTrigger("fadeOut");
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+    }
 
 
     void Update()
