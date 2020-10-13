@@ -58,6 +58,11 @@ public class Player_Movement : MonoBehaviour
     public AudioSource audioJump;
     public AudioSource audioSmash;
 
+    public CameraShake cameraShake;
+    public float camShakeDuration = 0;
+    public float camShakeMagnitude = 0;
+
+
     void Start()
     {
         controller = GetComponent<Controller2D>();
@@ -78,7 +83,6 @@ public class Player_Movement : MonoBehaviour
     void AttemptToSmash()
     {
         isSmash = true;
-        audioSmash.Play();
     }
 
     void AttemptToDash()
@@ -98,7 +102,8 @@ public class Player_Movement : MonoBehaviour
         }
         if (isSmash && controller.collisions.below)
         {
-            Debug.Log("SmashReset");
+            audioSmash.Play();
+            StartCoroutine(cameraShake.Shake(camShakeDuration, camShakeMagnitude));
             canMove = true;
             velocity = new Vector2(0, 0);
             isSmash = false;
@@ -148,7 +153,7 @@ public class Player_Movement : MonoBehaviour
             powerup.secondJump = false;
         }
 
-        if (Input.GetKeyDown(dash)/* && powerup.dashAbility */)
+        if (Input.GetKeyDown(dash) && powerup.dashAbility)
         {
             if (Time.time >= (lastDash + dashCoolDown))
             {
@@ -156,7 +161,7 @@ public class Player_Movement : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(smash) && !controller.collisions.below && canMove /* && powerup.smashAbility */)
+        if (Input.GetKeyDown(smash) && !controller.collisions.below && canMove && powerup.smashAbility)
         {
             AttemptToSmash();
         }
